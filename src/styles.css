@@ -1,0 +1,12 @@
+:root {
+  font-family: Hiragino Kaku Gothic ProN, Meiryo, sans-serif;
+}
+
+body {
+  padding: 0.5rem 1rem;
+  background-color: #e6e6e6;
+}
+
+* {
+  box-sizing: border-box;
+}
