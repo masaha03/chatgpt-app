@@ -1,4 +1,6 @@
 name: "publish"
+env:
+  VITE_APIKEY: ${{secrets.OPENAI_API_KEY_GITHUB1}}
 on:
   push:
     branches:
