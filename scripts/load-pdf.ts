@@ -23,7 +23,7 @@ async function loadDocuments() {
   const vectorStore = await HNSWLib.fromDocuments(
     docs,
     new OpenAIEmbeddings({
-      openAIApiKey: "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",
+      openAIApiKey: "openai-api-key",
     })
   );
 
@@ -38,7 +38,7 @@ async function loadSavedStore() {
   const store = await HNSWLib.load(
     directory,
     new OpenAIEmbeddings({
-      openAIApiKey: "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",
+      openAIApiKey: "openai-api-key",
     })
   );
   console.info("loading completed");
@@ -48,7 +48,7 @@ async function loadSavedStore() {
 const chat = new OpenAI({
   temperature: 0,
   modelName: "gpt-3.5-turbo",
-  openAIApiKey: "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",
+  openAIApiKey: "openai-api-key",
 });
 
 // const vectorStore = await loadDocuments();
