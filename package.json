@@ -8,6 +8,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "tauri": "tauri",
+    "tauri:dev": "tauri dev",
     "load-pdf": "ts-node --esm ./scripts/load-pdf.ts"
   },
   "dependencies": {
