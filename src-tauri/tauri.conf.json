@@ -28,7 +28,12 @@
         "icons/icon.ico"
       ],
       "identifier": "jp.co.mshackers.chatgpt-app",
-      "targets": "all"
+      "targets": "all",
+      "windows": {
+        "wix": {
+          "language": "jp-JP"
+        }
+      }
     },
     "security": {
       "csp": null
