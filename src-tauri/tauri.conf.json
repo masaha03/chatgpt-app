@@ -31,7 +31,7 @@
       "targets": "all",
       "windows": {
         "wix": {
-          "language": "jp-JP"
+          "language": "ja-JP"
         }
       }
     },
