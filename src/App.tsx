@@ -1,16 +1,23 @@
-import "./App.css";
+import styles from "./App.module.css";
 import { Input } from "./Input";
 import { ChatGPTProvider } from "./ChatGPTContext";
 import { Output } from "./Output";
+import { Sidebar } from "./Sidebar";
+import { ChatListProvider } from "./ChatListContext";
 
 function App() {
   return (
-    <ChatGPTProvider>
-      <div className="container">
-        <Output />
-        <Input />
-      </div>
-    </ChatGPTProvider>
+    <ChatListProvider>
+      <ChatGPTProvider>
+        <div className={styles.container}>
+          <Sidebar />
+          <main>
+            <Output />
+            <Input />
+          </main>
+        </div>
+      </ChatGPTProvider>
+    </ChatListProvider>
   );
 }
 

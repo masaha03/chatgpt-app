@@ -1,0 +1,14 @@
+.container {
+  display: grid;
+  grid-template-columns: 20rem 1fr;
+  grid-template-rows: 1vh;
+  gap: 0.5rem;
+}
+
+.container main {
+  padding: 0 0.5rem 0 0;
+  overflow-y: auto;
+  margin: 10px 0;
+  height: calc(100vh - 20px);
+  max-height: calc(100vh - 20px);
+}

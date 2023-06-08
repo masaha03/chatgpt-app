@@ -1,19 +1,15 @@
 //ChatGPTのResponseを管理するコンテキストを定義
 // src/ChatGPTContext.tsx
+import { ReactNode, createContext, useContext, useState } from "react";
 import {
-  FormEvent,
-  ReactNode,
-  createContext,
-  useContext,
-  useState,
-} from "react";
-import {
-  ChatCompletionRequestMessage,
-  Configuration,
   CreateChatCompletionRequest,
   CreateChatCompletionResponse,
-  OpenAIApi,
 } from "openai";
+import {
+  ChatCompletionRequestMessageType,
+  useChatList,
+} from "./ChatListContext";
+import { Configuration, OpenAIApi } from "openai";
 
 const configuration = new Configuration({
   apiKey: import.meta.env.VITE_APIKEY,
@@ -22,7 +18,7 @@ const openai = new OpenAIApi(configuration);
 
 export async function* fetchGPTCompressionStearm(
   apiKey: string,
-  messages: ChatCompletionRequestMessage[],
+  messages: ChatCompletionRequestMessageType[],
   abortSignal: AbortSignal
 ): AsyncGenerator<CreateCompletionResponseStream> {
   const res = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -89,8 +85,8 @@ export type CreateCompletionResponseStream = Omit<
 };
 
 type ChatGPTContextType = {
-  messages: ChatCompletionRequestMessage[];
-  setMessages: (messages: ChatCompletionRequestMessage[]) => void;
+  messages: ChatCompletionRequestMessageType[];
+  setMessages: (messages: ChatCompletionRequestMessageType[]) => void;
   response: CreateChatCompletionResponse | null;
   setResponse: (response: CreateChatCompletionResponse | null) => void;
   running: {
@@ -111,12 +107,7 @@ const ChatGPTContext = createContext<ChatGPTContextType>({
 });
 
 export const ChatGPTProvider = ({ children }: { children: ReactNode }) => {
-  const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([
-    {
-      role: "system",
-      content: "あなたは親切なアシスタントです。",
-    },
-  ]);
+  const { messages, setMessages, setTitle } = useChatList();
   const [response, setResponse] = useState<CreateChatCompletionResponse | null>(
     null
   );
@@ -162,6 +153,26 @@ export const ChatGPTProvider = ({ children }: { children: ReactNode }) => {
       console.error(err);
     } finally {
       setRunning(null);
+    }
+
+    if (nextMessages.length === 2) {
+      const prompt = nextMessages[1].content;
+
+      const response = await openai.createChatCompletion({
+        model: "gpt-3.5-turbo",
+        messages: [
+          {
+            role: "system",
+            content:
+              "You are a chat bot that generates a Japanese title that summarizes the prompt. When responding, please answer only with the generated title.",
+          },
+          {
+            role: "user",
+            content: "Please summarize the following prompts: \n" + prompt,
+          },
+        ],
+      });
+      setTitle(response.data.choices[0].message!.content);
     }
   };
 

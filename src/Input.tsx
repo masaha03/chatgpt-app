@@ -42,14 +42,7 @@ export function Input() {
           placeholder="入力してください"
           className={styles.textarea}
         />
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <button
-            type="button"
-            disabled={messages.length === 0}
-            onClick={handleReset}
-          >
-            リセット
-          </button>
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <button type="submit" disabled={isDisabled}>
             送信
           </button>
