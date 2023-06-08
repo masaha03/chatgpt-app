@@ -21,11 +21,6 @@ export function Input() {
     setIsDisabled(e.target.value.length === 0);
   };
 
-  const handleReset = () => {
-    setMessages([]);
-    setResponse(null);
-  };
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await send(text);
@@ -35,7 +30,7 @@ export function Input() {
   return (
     <form onSubmit={handleSubmit}>
       {running && <Spinner />}
-      <div className="input">
+      <div className={styles.input}>
         <textarea
           value={text}
           onChange={handleChange}

@@ -111,3 +111,7 @@
       -12.727926px -12.727926px 0 0 var(--spinner-color);
   }
 }
+
+.input {
+  padding: 0 4px;
+}
